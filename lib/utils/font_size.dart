@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TextSize {
+  double h(context) {
+    return (25 / 720) * MediaQuery.of(context).size.height;
+  }
+
   double h1(context) {
     return (20 / 720) * MediaQuery.of(context).size.height;
   }

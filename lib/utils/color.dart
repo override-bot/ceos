@@ -6,3 +6,4 @@ const Color ceoPurpleGrey = Color.fromARGB(255, 135, 124, 141);
 const Color ceoWhite = Colors.white;
 const Color ceoBlack = Colors.black;
 const Color grey = Colors.grey;
+Color? greyOne = Colors.grey[400];
