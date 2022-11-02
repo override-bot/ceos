@@ -1,17 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:ceos/ui/widgets/onboarding_two.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
-import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingOne extends StatefulWidget {
+class OnboardingTwo extends StatefulWidget {
   @override
-  OnboardingOneState createState() => OnboardingOneState();
+  OnboardingTwoState createState() => OnboardingTwoState();
 }
 
-class OnboardingOneState extends State<OnboardingOne> {
+class OnboardingTwoState extends State<OnboardingTwo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                   image: DecorationImage(
                       fit: BoxFit.contain,
                       image: AssetImage(
-                          'assets/undraw_Online_shopping_re_k1sv.png')))),
+                          'assets/undraw_web_shopping_re_owap copy.png')))),
           Container(
             margin: EdgeInsets.only(top: 7),
             child: Column(
@@ -43,7 +41,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                   margin: EdgeInsets.only(left: 15),
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: Text(
-                    "A shop\nin your pocket",
+                    "Everyone\nis a CEO here!",
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: TextSize().h(context),
@@ -54,7 +52,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                   margin: EdgeInsets.only(left: 15, top: 7),
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: Text(
-                    "Welcome to ceos\nWith ceos we can save your time 🥳",
+                    "Welcome to ceos\nYou can buy and sell on ceos",
                     //textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -69,23 +67,46 @@ class OnboardingOneState extends State<OnboardingOne> {
               margin: EdgeInsets.only(
                 top: 20,
               ),
-              width: MediaQuery.of(context).size.width / 2,
-              child: Center(
-                child: Container(
-                  height: 90,
-                  width: 90,
-                  child: MaterialButton(
-                    onPressed: () {
-                      RouteController().push(context, OnboardingTwo());
-                    },
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: ceoWhite,
+              // width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: ceoPink)),
+                    child: MaterialButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            color: ceoPink, fontSize: TextSize().h3(context)),
+                      ),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                      color: ceoPink, borderRadius: BorderRadius.circular(45)),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 20,
+                    ),
+                    width: 150,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: ceoPink,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: ceoPink)),
+                    child: MaterialButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                            color: ceoWhite, fontSize: TextSize().h3(context)),
+                      ),
+                    ),
+                  )
+                ],
               ))
         ]),
       ),
