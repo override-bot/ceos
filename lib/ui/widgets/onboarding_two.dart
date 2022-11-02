@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ceos/ui/shared/textfield.dart';
+import 'package:ceos/ui/views/login.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
+import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingTwo extends StatefulWidget {
@@ -52,7 +55,7 @@ class OnboardingTwoState extends State<OnboardingTwo> {
                   margin: EdgeInsets.only(left: 15, top: 7),
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: Text(
-                    "Welcome to ceos\nYou can buy and sell on ceos",
+                    "Welcome to ceos\nYou can buy and sell on ceos💰",
                     //textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -79,11 +82,13 @@ class OnboardingTwoState extends State<OnboardingTwo> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: ceoPink)),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        RouteController().push(context, LoginView());
+                      },
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: ceoPink, fontSize: TextSize().h3(context)),
+                            color: ceoPurple, fontSize: TextSize().h3(context)),
                       ),
                     ),
                   ),
@@ -107,7 +112,7 @@ class OnboardingTwoState extends State<OnboardingTwo> {
                     ),
                   )
                 ],
-              ))
+              )),
         ]),
       ),
     );
