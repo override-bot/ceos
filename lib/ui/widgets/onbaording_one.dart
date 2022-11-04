@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/services/authentication.dart';
+import '../../core/viewmodels/user_viewmodel.dart';
 
 class OnboardingOne extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class OnboardingOneState extends State<OnboardingOne> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
-
+    final userViewModel = Provider.of<UserViewmodel>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -82,17 +83,21 @@ class OnboardingOneState extends State<OnboardingOne> {
                   height: 90,
                   width: 90,
                   child: MaterialButton(
-                    onPressed: () {
-                      /*
+                    onPressed: () async {
                       authService.getAuthState();
                       print(authService.userId);
                       if (authService.authState == true) {
-                        RouteController()
-                            .pushAndRemoveUntil(context, AppIndex());
+                        bool result =
+                            await userViewModel.checkIfUser(authService.userId);
+                        if (result == true) {
+                          RouteController()
+                              .pushAndRemoveUntil(context, AppIndex());
+                        } else {
+                          RouteController().push(context, Fullname());
+                        }
                       } else {
                         RouteController().push(context, OnboardingTwo());
-                      }*/
-                      RouteController().push(context, Fullname());
+                      }
                     },
                     child: Icon(
                       Icons.arrow_forward_ios,

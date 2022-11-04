@@ -1,6 +1,7 @@
 import 'package:ceos/core/services/authentication.dart';
 import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/shared/textfield.dart';
+import 'package:ceos/ui/views/app_index.dart';
 import 'package:ceos/ui/widgets/onbaording_one.dart';
 import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
@@ -110,8 +111,8 @@ class LoginViewState extends State<LoginView> {
                                   .login(_emailField.text.trim(),
                                       _passwordField.text.trim())
                                   .then((value) {
-                                RouteController().pushAndRemoveUntil(
-                                    context, OnboardingOne());
+                                RouteController()
+                                    .pushAndRemoveUntil(context, AppIndex());
                               }).catchError((e) {
                                 RouteController().pop(context);
                                 PopUp().showError(e.message, context);

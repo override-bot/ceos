@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:ceos/core/models/user_model.dart';
+import 'package:ceos/core/services/api.dart';
 import 'package:ceos/core/services/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +14,7 @@ class UserViewmodel extends ChangeNotifier {
   String? _twitterLink;
   String? _instagramLink;
   String? _imageUrl;
+  File? _image;
   String? get firstname => _firstName;
   String? get lastname => _lastName;
   String? get bio => _bio;
@@ -18,8 +23,34 @@ class UserViewmodel extends ChangeNotifier {
   String? get twitterLink => _twitterLink;
   String? get instagramLink => _instagramLink;
   String? get imageUrl => _imageUrl;
+  File? get image => _image;
+  final Api _api = Api("users");
   Future<void> setImageUrl(image, uid) async {
     _imageUrl = await Storage().uploadImage(image, uid, "Users");
+  }
+
+  Future<Ceo> getCeoById(id) async {
+    var doc = await _api.getDocumentById(id);
+    return Ceo.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+  }
+
+  Future<bool> checkIfUser(userId) async {
+    var result = await _api.getDocumentById(userId);
+    if (result.exists) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future addUser(Ceo data, uid) async {
+    var result = await _api.setData(data.toJson(), uid);
+    return result;
+  }
+
+  setImage(photo) {
+    _image = photo;
+    notifyListeners();
   }
 
   void setFirstname(text) {
@@ -28,5 +59,21 @@ class UserViewmodel extends ChangeNotifier {
 
   void setLastname(text) {
     _lastName = text;
+  }
+
+  void setPhoneNumber(text) {
+    _phoneNumber = text;
+  }
+
+  void setWhatsappLink(text) {
+    _whatsappLink = text;
+  }
+
+  void setInstagramLink(text) {
+    _instagramLink = text;
+  }
+
+  void setTwitterLink(text) {
+    _twitterLink = text;
   }
 }
