@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:ceos/ui/views/app_index.dart';
+import 'package:ceos/ui/widgets/fullname.dart';
 import 'package:ceos/ui/widgets/onboarding_two.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
@@ -82,6 +83,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                   width: 90,
                   child: MaterialButton(
                     onPressed: () {
+                      /*
                       authService.getAuthState();
                       print(authService.userId);
                       if (authService.authState == true) {
@@ -89,7 +91,8 @@ class OnboardingOneState extends State<OnboardingOne> {
                             .pushAndRemoveUntil(context, AppIndex());
                       } else {
                         RouteController().push(context, OnboardingTwo());
-                      }
+                      }*/
+                      RouteController().push(context, Fullname());
                     },
                     child: Icon(
                       Icons.arrow_forward_ios,

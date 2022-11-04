@@ -18,7 +18,7 @@ class UserViewmodel extends ChangeNotifier {
   String? get twitterLink => _twitterLink;
   String? get instagramLink => _instagramLink;
   String? get imageUrl => _imageUrl;
-  void setImageUrl(image, uid) async {
+  Future<void> setImageUrl(image, uid) async {
     _imageUrl = await Storage().uploadImage(image, uid, "Users");
   }
 

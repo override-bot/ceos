@@ -1,5 +1,6 @@
 import 'package:ceos/core/viewmodels/user_viewmodel.dart';
 import 'package:ceos/ui/shared/textfield.dart';
+import 'package:ceos/ui/widgets/profile_picture.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class Fullname extends StatefulWidget {
 class FullnameState extends State<Fullname> {
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
+  bool? isFname;
+  bool? isLname;
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -67,7 +70,21 @@ class FullnameState extends State<Fullname> {
                       child: Container(
                           margin: EdgeInsets.only(top: 15),
                           child: CustomTextField(
+                            onChanged: (String text) {
+                              if (text.length > 3) {
+                                setState(() {
+                                  isFname = true;
+                                });
+                              } else {
+                                setState(() {
+                                  isFname = false;
+                                });
+                              }
+                            },
                             hintText: "First name",
+                            errorText: isFname == false
+                                ? "first name must be more than 3 characters"
+                                : null,
                             controller: _firstName,
                             // prefix: Icons.person_outline_rounded,
                           ))),
@@ -75,6 +92,21 @@ class FullnameState extends State<Fullname> {
                       child: Container(
                           // margin: EdgeInsets.only(top),
                           child: CustomTextField(
+                    onChanged: (String text) {
+                      if (text.length > 3) {
+                        setState(() {
+                          isLname = true;
+                        });
+                      } else {
+                        setState(() {
+                          isLname = false;
+                        });
+                      }
+                    },
+
+                    errorText: isLname == false
+                        ? "last name must be more than 3 characters"
+                        : null,
                     hintText: "Last name",
                     controller: _lastName,
                     // prefix: Icons.person_outline_rounded,
@@ -90,11 +122,14 @@ class FullnameState extends State<Fullname> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: MaterialButton(
-                      onPressed: () {
-                        userViewModel.setFirstname(_firstName.text);
-                        userViewModel.setLastname(_lastName.text);
-                        print(userViewModel.firstname);
-                      },
+                      onPressed: isFname == true && isLname == true
+                          ? () {
+                              userViewModel.setFirstname(_firstName.text);
+                              userViewModel.setLastname(_lastName.text);
+                              RouteController().push(context, ProfilePicture());
+                              print(userViewModel.firstname);
+                            }
+                          : null,
                       child: Text(
                         "Next",
                         style: TextStyle(
