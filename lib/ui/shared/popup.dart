@@ -102,7 +102,7 @@ class PopUp {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
-                          "success 🙂",
+                          "success 🥳",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,

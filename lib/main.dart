@@ -1,4 +1,5 @@
 import 'package:ceos/core/services/authentication.dart';
+import 'package:ceos/core/viewmodels/user_viewmodel.dart';
 import 'package:ceos/ui/widgets/onbaording_one.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
@@ -9,13 +10,15 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
 }
 
 AuthenticationService _authenticationService = AuthenticationService();
+UserViewmodel _userViewmodel = UserViewmodel();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -27,6 +30,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) {
             return _authenticationService;
+          }),
+          ChangeNotifierProvider(create: (_) {
+            return _userViewmodel;
           })
         ],
         child: MaterialApp(

@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ceos/ui/views/app_index.dart';
 import 'package:ceos/ui/widgets/onboarding_two.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/services/authentication.dart';
 
 class OnboardingOne extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class OnboardingOne extends StatefulWidget {
 class OnboardingOneState extends State<OnboardingOne> {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthenticationService>(context);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -76,7 +82,14 @@ class OnboardingOneState extends State<OnboardingOne> {
                   width: 90,
                   child: MaterialButton(
                     onPressed: () {
-                      RouteController().push(context, OnboardingTwo());
+                      authService.getAuthState();
+                      print(authService.userId);
+                      if (authService.authState == true) {
+                        RouteController()
+                            .pushAndRemoveUntil(context, AppIndex());
+                      } else {
+                        RouteController().push(context, OnboardingTwo());
+                      }
                     },
                     child: Icon(
                       Icons.arrow_forward_ios,

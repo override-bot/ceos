@@ -2,6 +2,7 @@
 
 import 'package:ceos/ui/shared/textfield.dart';
 import 'package:ceos/ui/views/login.dart';
+import 'package:ceos/ui/views/signup.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:ceos/utils/router.dart';
@@ -103,7 +104,9 @@ class OnboardingTwoState extends State<OnboardingTwo> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: ceoPink)),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        RouteController().push(context, RegisterView());
+                      },
                       child: Text(
                         "Sign up",
                         style: TextStyle(

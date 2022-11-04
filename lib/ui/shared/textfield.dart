@@ -54,10 +54,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           decoration: InputDecoration(
             filled: true,
             fillColor: greyOne,
-            prefixIcon: Icon(
-              widget.prefix,
-              color: ceoPurpleGrey,
-            ),
+            prefixIcon: widget.prefix != null
+                ? Icon(
+                    widget.prefix,
+                    color: ceoPurpleGrey,
+                  )
+                : null,
             hintText: widget.hintText,
             hintStyle: GoogleFonts.lato(
                 color: ceoPurpleGrey,

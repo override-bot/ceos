@@ -10,7 +10,6 @@ class AuthenticationService extends ChangeNotifier {
 
   void setAuthState(bool value) {
     _authState = value;
-    notifyListeners();
   }
 
   setUserId(uid) {
@@ -33,7 +32,7 @@ class AuthenticationService extends ChangeNotifier {
 
   Future signOut() async {
     await auth.signOut();
-    setUserId("");
+    setUserId(null);
     setAuthState(false);
   }
 
@@ -54,7 +53,7 @@ class AuthenticationService extends ChangeNotifier {
     var currentUser = auth.currentUser;
     if (currentUser == null) {
       setAuthState(false);
-      setUserId("");
+      setUserId(null);
     } else {
       setAuthState(true);
       setUserId(currentUser.uid);

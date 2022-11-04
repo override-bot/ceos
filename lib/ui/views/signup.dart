@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:ceos/core/services/authentication.dart';
 import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/shared/textfield.dart';
+import 'package:ceos/ui/widgets/fullname.dart';
 import 'package:ceos/ui/widgets/onbaording_one.dart';
 import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +12,15 @@ import 'package:provider/provider.dart';
 import '../../utils/color.dart';
 import '../../utils/font_size.dart';
 
-class LoginView extends StatefulWidget {
+class RegisterView extends StatefulWidget {
   @override
-  LoginViewState createState() => LoginViewState();
+  RegisterViewState createState() => RegisterViewState();
 }
 
-class LoginViewState extends State<LoginView> {
+class RegisterViewState extends State<RegisterView> {
   TextEditingController _emailField = TextEditingController();
   TextEditingController _passwordField = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -43,7 +47,7 @@ class LoginViewState extends State<LoginView> {
                           image: DecorationImage(
                               fit: BoxFit.contain,
                               image: AssetImage(
-                                  'assets/undraw_Login_re_4vu2.png')))),
+                                  'assets/undraw_Access_account_re_8spm.png')))),
                   Container(
                     margin: EdgeInsets.only(top: 0),
                     child: Column(
@@ -52,7 +56,7 @@ class LoginViewState extends State<LoginView> {
                           margin: EdgeInsets.only(left: 15),
                           width: MediaQuery.of(context).size.width / 1.2,
                           child: Text(
-                            "Welcome back\nOur able CEO 🙌🏻",
+                            "Become\na CEO today! 💪",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: TextSize().h1(context),
@@ -63,7 +67,7 @@ class LoginViewState extends State<LoginView> {
                           margin: EdgeInsets.only(left: 15, top: 7),
                           width: MediaQuery.of(context).size.width / 1.2,
                           child: Text(
-                            "Please enter your valid data\nin order to login to your account",
+                            "Please enter your valid data\nin order to create an account",
                             //textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -107,11 +111,11 @@ class LoginViewState extends State<LoginView> {
                             onPressed: () async {
                               PopUp().popLoad(context);
                               await authService
-                                  .login(_emailField.text.trim(),
+                                  .register(_emailField.text.trim(),
                                       _passwordField.text.trim())
                                   .then((value) {
-                                RouteController().pushAndRemoveUntil(
-                                    context, OnboardingOne());
+                                RouteController()
+                                    .pushAndRemoveUntil(context, Fullname());
                               }).catchError((e) {
                                 RouteController().pop(context);
                                 PopUp().showError(e.message, context);
@@ -119,7 +123,7 @@ class LoginViewState extends State<LoginView> {
                               });
                             },
                             child: Text(
-                              "Login",
+                              "Sign up",
                               style: TextStyle(
                                   color: ceoWhite,
                                   fontSize: TextSize().h3(context)),

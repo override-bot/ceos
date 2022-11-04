@@ -7,3 +7,4 @@ const Color ceoWhite = Colors.white;
 const Color ceoBlack = Colors.black;
 const Color grey = Colors.grey;
 Color? greyOne = Colors.grey[200];
+const Color ceoRed = Color.fromARGB(255, 185, 47, 37);
