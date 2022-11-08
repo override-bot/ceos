@@ -31,7 +31,7 @@ class UserViewmodel extends ChangeNotifier {
 
   Future<Ceo> getCeoById(id) async {
     var doc = await _api.getDocumentById(id);
-    return Ceo.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+    return Ceo.fromMap(doc.data() as Map<String, dynamic>, id);
   }
 
   Future<bool> checkIfUser(userId) async {

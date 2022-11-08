@@ -78,6 +78,76 @@ class PopUp {
         });
   }
 
+  void showScore(message, context, image, score) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          height: 200,
+                          margin: const EdgeInsets.only(top: 0),
+                          // child: Image.asset(),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage(image)))),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          '${score}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: TextSize().h1(context),
+                              color: ceoPurple),
+                        ),
+                      ),
+                      Container(
+                        // margin: EdgeInsets.only(left: 15, top: 7),
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: Text(
+                          message,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: TextSize().p(context),
+                              color: ceoPurpleGrey),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 10,
+                        ),
+                        width: 150,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: ceoPink,
+                            border: Border.all(color: ceoPink)),
+                        child: MaterialButton(
+                          onPressed: () {
+                            RouteController().pop(context);
+                          },
+                          child: Text(
+                            "Back",
+                            style: TextStyle(
+                                color: ceoWhite,
+                                fontSize: TextSize().p(context)),
+                          ),
+                        ),
+                      )
+                    ])),
+          );
+        });
+  }
+
   void showSuccess(message, context) async {
     showDialog(
         context: context,

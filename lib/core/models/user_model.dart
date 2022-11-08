@@ -9,22 +9,24 @@ class Ceo {
   final String? twitterLink;
   final String? bio;
   final String? imageUrl;
-  Ceo({
-    this.id,
-    this.bio,
-    this.ceoScore,
-    this.firstname,
-    this.instagramLink,
-    this.lastname,
-    this.phoneNumber,
-    this.twitterLink,
-    this.imageUrl,
-    this.whatsappLink,
-  });
+  final String? username;
+  Ceo(
+      {this.id,
+      this.bio,
+      this.ceoScore,
+      this.firstname,
+      this.instagramLink,
+      this.lastname,
+      this.phoneNumber,
+      this.twitterLink,
+      this.imageUrl,
+      this.whatsappLink,
+      this.username});
   Ceo.fromMap(Map snapshot, this.id)
       : bio = snapshot['bio'],
         ceoScore = snapshot['ceoScore'],
-        firstname = snapshot['ceoScore'],
+        username = snapshot['username'],
+        firstname = snapshot['firstname'],
         lastname = snapshot['lastname'],
         imageUrl = snapshot['imageUrl'],
         instagramLink = snapshot['instagramLink'],
@@ -42,6 +44,7 @@ class Ceo {
       'whatsappLink': whatsappLink,
       'imageUrl': imageUrl,
       'twitterLink': twitterLink,
+      'username': username
     };
   }
 }

@@ -152,22 +152,23 @@ class SocialsState extends State<Socials> {
                                       userViewModel
                                           .addUser(
                                               Ceo(
-                                                ceoScore: 0,
-                                                whatsappLink:
-                                                    userViewModel.whatsappLink,
-                                                twitterLink:
-                                                    userViewModel.twitterLink,
-                                                instagramLink:
-                                                    userViewModel.instagramLink,
-                                                phoneNumber:
-                                                    userViewModel.phoneNumber,
-                                                firstname:
-                                                    userViewModel.firstname,
-                                                lastname:
-                                                    userViewModel.lastname,
-                                                imageUrl:
-                                                    userViewModel.imageUrl,
-                                              ),
+                                                  ceoScore: 0,
+                                                  whatsappLink: userViewModel
+                                                      .whatsappLink,
+                                                  twitterLink:
+                                                      userViewModel.twitterLink,
+                                                  instagramLink: userViewModel
+                                                      .instagramLink,
+                                                  phoneNumber:
+                                                      userViewModel.phoneNumber,
+                                                  firstname:
+                                                      userViewModel.firstname,
+                                                  lastname:
+                                                      userViewModel.lastname,
+                                                  imageUrl:
+                                                      userViewModel.imageUrl,
+                                                  username:
+                                                      "@${userViewModel.firstname?.toLowerCase()}"),
                                               authService.userId)
                                           .then((value) {
                                         RouteController().pushAndRemoveUntil(

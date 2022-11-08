@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:badges/badges.dart';
+import 'package:ceos/ui/views/profile_view.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +15,15 @@ class AppIndex extends StatefulWidget {
 
 class AppIndexState extends State<AppIndex> {
   int currentIndex = 0;
-  List children = [Container(), Container(), Container(), Container()];
+  List children = [Container(), Container(), Container(), ProfileView()];
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ceoWhite,
+        elevation: 0.0,
+      ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: ceoWhite,
@@ -60,6 +66,7 @@ class AppIndexState extends State<AppIndex> {
           onTap: onTabTapped,
         ),
       ),
+      body: children[currentIndex],
     );
   }
 
