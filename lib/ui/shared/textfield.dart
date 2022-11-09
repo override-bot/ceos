@@ -15,6 +15,8 @@ class CustomTextField extends StatefulWidget {
   final bool? obscureText;
   final bool? isEnabled;
   final IconData? prefix;
+  final int? maxLines;
+  final int? minLines;
 
   // ignore: use_key_in_widget_constructors
   const CustomTextField(
@@ -22,6 +24,8 @@ class CustomTextField extends StatefulWidget {
       this.prefix,
       this.labelText,
       this.onChanged,
+      this.maxLines,
+      this.minLines,
       required this.controller,
       this.errorText,
       this.obscureText,
@@ -37,9 +41,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        padding: EdgeInsets.only(top: 5.0),
+        padding: EdgeInsets.only(top: 5),
         width: MediaQuery.of(context).size.width / 1.1,
         child: TextFormField(
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
           onChanged: (text) {
             if (widget.onChanged != null) {
               widget.onChanged!(text);

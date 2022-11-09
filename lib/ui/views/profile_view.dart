@@ -2,9 +2,15 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ceos/core/models/user_model.dart';
+import 'package:ceos/core/viewmodels/product_viewmodel.dart';
+import 'package:ceos/ui/shared/dropdown.dart';
+import 'package:ceos/ui/shared/icon_circle.dart';
 import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/shared/text_icon_button.dart';
+import 'package:ceos/ui/views/add_product.dart';
+import 'package:ceos/utils/categories.dart';
 import 'package:ceos/utils/color.dart';
+import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +28,7 @@ class ProfileState extends State<ProfileView> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
+    final productViewmodel = Provider.of<ProductViewmodel>(context);
     return Scaffold(
       body: Container(
           height: double.infinity,
@@ -114,10 +121,13 @@ class ProfileState extends State<ProfileView> {
                           child: Row(
                             children: [
                               TextIcon(
-                                icon: Icons.add_box_rounded,
-                                color: Colors.orange,
-                                text: "Add product",
-                              ),
+                                  icon: Icons.add_business,
+                                  color: Colors.orange,
+                                  text: "Add product",
+                                  onPressed: () {
+                                    RouteController()
+                                        .push(context, AddProduct());
+                                  }),
                               TextIcon(
                                 icon: Icons.timer,
                                 color: Colors.red,
@@ -141,14 +151,18 @@ class ProfileState extends State<ProfileView> {
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );
-              } else {
-                return Container(
-                  child: Text(snapshot.error.toString()),
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ceoPink,
+                  ),
                 );
+              } else {
+                return Container();
               }
             }),
           )),

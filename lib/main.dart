@@ -1,4 +1,5 @@
 import 'package:ceos/core/services/authentication.dart';
+import 'package:ceos/core/viewmodels/product_viewmodel.dart';
 import 'package:ceos/core/viewmodels/user_viewmodel.dart';
 import 'package:ceos/ui/widgets/onbaording_one.dart';
 import 'package:ceos/utils/color.dart';
@@ -19,6 +20,7 @@ void main() async {
 
 AuthenticationService _authenticationService = AuthenticationService();
 UserViewmodel _userViewmodel = UserViewmodel();
+ProductViewmodel _productViewmodel = ProductViewmodel();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -33,6 +35,9 @@ class MyApp extends StatelessWidget {
           }),
           ChangeNotifierProvider(create: (_) {
             return _userViewmodel;
+          }),
+          ChangeNotifierProvider(create: (_) {
+            return _productViewmodel;
           })
         ],
         child: MaterialApp(
