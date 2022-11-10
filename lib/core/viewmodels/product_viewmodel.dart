@@ -13,7 +13,7 @@ class ProductViewmodel extends ChangeNotifier {
   String? get category => _category;
   String? get imageUrl => _imageUrl;
   File? get image => _image;
-  final Api _api = Api("users");
+  final Api _api = Api("products");
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
@@ -28,8 +28,8 @@ class ProductViewmodel extends ChangeNotifier {
     _imageUrl = await Storage().uploadImage(image, fileName, "products");
   }
 
-  Future addProduct(Product data, uid) async {
-    var result = await _api.setData(data.toJson(), uid);
+  Future addProduct(Product data) async {
+    var result = await _api.addData(data.toJson());
     return result;
   }
 }

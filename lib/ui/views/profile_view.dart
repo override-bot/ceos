@@ -7,6 +7,7 @@ import 'package:ceos/ui/shared/dropdown.dart';
 import 'package:ceos/ui/shared/icon_circle.dart';
 import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/shared/text_icon_button.dart';
+import 'package:ceos/ui/views/add_flash.dart';
 import 'package:ceos/ui/views/add_product.dart';
 import 'package:ceos/utils/categories.dart';
 import 'package:ceos/utils/color.dart';
@@ -131,6 +132,9 @@ class ProfileState extends State<ProfileView> {
                               TextIcon(
                                 icon: Icons.timer,
                                 color: Colors.red,
+                                onPressed: () {
+                                  RouteController().push(context, AddFlash());
+                                },
                                 text: "Flash sale",
                               ),
                               TextIcon(

@@ -13,24 +13,28 @@ import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
 import '../../utils/categories.dart';
 import '../../utils/color.dart';
+import '../../utils/flash_percent.dart';
 import '../../utils/font_size.dart';
 import '../../utils/router.dart';
 import '../shared/dropdown.dart';
 
-class AddProduct extends StatefulWidget {
+class AddFlash extends StatefulWidget {
   @override
-  AddProductState createState() => AddProductState();
+  AddFlashState createState() => AddFlashState();
 }
 
-class AddProductState extends State<AddProduct> {
+class AddFlashState extends State<AddFlash> {
   File? _image;
   final picker = ImagePicker();
   TextEditingController _pnameField = TextEditingController();
   TextEditingController _priceField = TextEditingController();
   TextEditingController _description = TextEditingController();
+  TextEditingController _discount = TextEditingController();
   bool? isName;
   bool? isprice;
   bool? isdescp;
+  bool? isDisc;
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -71,13 +75,13 @@ class AddProductState extends State<AddProduct> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconCircle(
-                icon: Icons.add_business,
+                icon: Icons.timer,
                 color: ceoPurple,
               ),
               Container(
                 margin: EdgeInsets.only(top: 7),
                 child: Text(
-                  "Add a new product",
+                  "Create flash sale",
                   style: TextStyle(
                       color: ceoPurple,
                       fontWeight: FontWeight.w500,
@@ -87,7 +91,7 @@ class AddProductState extends State<AddProduct> {
               Container(
                 margin: EdgeInsets.only(top: 6),
                 child: Text(
-                  "Add a products for your customers to buy. No commission required.🎉",
+                  "Flash sales expire in 24 hours and are pushed to the top of the home screen",
                   style: TextStyle(
                       color: ceoPurpleGrey, fontSize: TextSize().h3(context)),
                 ),
@@ -131,6 +135,26 @@ class AddProductState extends State<AddProduct> {
                     },
                     hintText: "Price (in Naira)",
                     controller: _priceField),
+              ),
+              Center(
+                child: CustomTextField(
+                    maxLines: 1,
+                    errorText: isDisc == false
+                        ? "flash sales require a discount"
+                        : null,
+                    onChanged: (String value) {
+                      if (value.length > 2) {
+                        setState(() {
+                          isDisc = true;
+                        });
+                      } else {
+                        setState(() {
+                          isDisc = false;
+                        });
+                      }
+                    },
+                    hintText: "Discounted price (in Naira)",
+                    controller: _discount),
               ),
               CeoDropdown(
                 hint: "category",
@@ -217,7 +241,8 @@ class AddProductState extends State<AddProduct> {
                   color: isName == true &&
                           isdescp == true &&
                           isprice == true &&
-                          productViewmodel.image != null
+                          productViewmodel.image != null &&
+                          isDisc == true
                       ? ceoPurple
                       : ceoPurpleGrey,
                   borderRadius: BorderRadius.circular(20),
@@ -226,7 +251,8 @@ class AddProductState extends State<AddProduct> {
                   onPressed: isName == true &&
                           isdescp == true &&
                           isprice == true &&
-                          productViewmodel.image != null
+                          productViewmodel.image != null &&
+                          isDisc == true
                       ? () async {
                           PopUp().popLoad(context);
                           try {
@@ -234,21 +260,22 @@ class AddProductState extends State<AddProduct> {
                                 productViewmodel.image,
                                 productViewmodel.image?.path);
                             productViewmodel.addProduct(Product(
-                              dateAdded: DateTime.now(),
-                              description: _description.text,
-                              isDiscounted: false,
-                              isFlash: false,
-                              price: int.parse(_priceField.text),
-                              productImage: productViewmodel.imageUrl,
-                              category: productViewmodel.category,
-                              sellerId: authService.userId,
-                              productName: _pnameField.text,
-                            ));
+                                dateAdded: DateTime.now(),
+                                description: _description.text,
+                                isDiscounted: true,
+                                isFlash: true,
+                                price: int.parse(_priceField.text),
+                                productImage: productViewmodel.imageUrl,
+                                category: productViewmodel.category,
+                                sellerId: authService.userId,
+                                productName: _pnameField.text,
+                                discountPrice: int.parse(_discount.text)));
                             productViewmodel.setCategory(null);
                             productViewmodel.setImage(null);
                             RouteController().pop(context);
                             PopUp().showSuccess(
-                                "Products added successfully", context);
+                                "Product added at ${getFlashPercent(int.parse(_priceField.text), int.parse(_discount.text))}% discount. Onyeoma cy🙌🏻",
+                                context);
                           } on Exception catch (e) {
                             RouteController().pop(context);
                             PopUp().showError(e, context);
@@ -256,7 +283,7 @@ class AddProductState extends State<AddProduct> {
                         }
                       : null,
                   child: Text(
-                    "Add product",
+                    "Create flash",
                     style: TextStyle(
                         color: ceoWhite, fontSize: TextSize().h3(context)),
                   ),

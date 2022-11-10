@@ -6,5 +6,6 @@ List<String> categories = [
   "Sporting goods",
   "Gym equipment",
   "Home and office",
-  "Grocery"
+  "Grocery",
+  "Gifts"
 ];

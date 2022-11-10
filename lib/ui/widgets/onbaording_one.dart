@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/views/app_index.dart';
 import 'package:ceos/ui/widgets/fullname.dart';
 import 'package:ceos/ui/widgets/onboarding_two.dart';
@@ -87,6 +88,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                       authService.getAuthState();
                       print(authService.userId);
                       if (authService.authState == true) {
+                        PopUp().popLoad(context);
                         bool result =
                             await userViewModel.checkIfUser(authService.userId);
                         if (result == true) {
