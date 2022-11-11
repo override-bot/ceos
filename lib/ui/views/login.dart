@@ -79,6 +79,7 @@ class LoginViewState extends State<LoginView> {
                               Container(
                                   margin: EdgeInsets.only(left: 10),
                                   child: CustomTextField(
+                                    maxLines: 1,
                                     hintText: "Email address",
                                     controller: _emailField,
                                     prefix: Icons.mail_outline_rounded,
@@ -88,6 +89,7 @@ class LoginViewState extends State<LoginView> {
                                     left: 10,
                                   ),
                                   child: CustomTextField(
+                                    maxLines: 1,
                                     obscureText: true,
                                     hintText: "Password",
                                     controller: _passwordField,

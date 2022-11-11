@@ -36,7 +36,7 @@ dependencies:
   firebase_auth: ^3.3.18
   image_picker: ^0.8.6
   cloud_firestore: ^3.5.1
-  velocity_x: ^3.0.0
+  velocity_x: ^3.5.0
   firebase_storage: ^10.3.11
   flutter_otp_text_field: ^1.0.1
   modal_bottom_sheet: ^2.0.0

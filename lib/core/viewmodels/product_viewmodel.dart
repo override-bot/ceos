@@ -14,9 +14,30 @@ class ProductViewmodel extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   File? get image => _image;
   final Api _api = Api("products");
+  List<Product> products = [];
+  List<Product> flashes = [];
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
+  }
+
+  Future<List<Product>> getTopSix() async {
+    var result = await _api.getWhereIsEqualToLimited(false, "isFlash");
+    products = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+    return products;
+  }
+
+  Future<List<Product>> getFlashSales() async {
+    var result = await _api.getRecentDocs();
+    flashes = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+
+    return flashes;
   }
 
   setImage(photo) {

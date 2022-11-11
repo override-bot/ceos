@@ -232,7 +232,8 @@ class AddProductState extends State<AddProduct> {
                           try {
                             await productViewmodel.setImageUrl(
                                 productViewmodel.image,
-                                productViewmodel.image?.path);
+                                authService.userId! +
+                                    DateTime.now().toIso8601String());
                             productViewmodel.addProduct(Product(
                               dateAdded: DateTime.now(),
                               description: _description.text,
@@ -244,14 +245,18 @@ class AddProductState extends State<AddProduct> {
                               sellerId: authService.userId,
                               productName: _pnameField.text,
                             ));
+
                             productViewmodel.setCategory(null);
                             productViewmodel.setImage(null);
                             RouteController().pop(context);
                             PopUp().showSuccess(
                                 "Products added successfully", context);
+                            _description.clear();
+                            _pnameField.clear();
+                            _priceField.clear();
                           } on Exception catch (e) {
                             RouteController().pop(context);
-                            PopUp().showError(e, context);
+                            PopUp().showError(e.toString(), context);
                           }
                         }
                       : null,

@@ -271,14 +271,19 @@ class AddFlashState extends State<AddFlash> {
                                 productName: _pnameField.text,
                                 discountPrice: int.parse(_discount.text)));
                             productViewmodel.setCategory(null);
+
                             productViewmodel.setImage(null);
                             RouteController().pop(context);
                             PopUp().showSuccess(
                                 "Product added at ${getFlashPercent(int.parse(_priceField.text), int.parse(_discount.text))}% discount. Onyeoma cy🙌🏻",
                                 context);
+                            _description.clear();
+                            _pnameField.clear();
+                            _priceField.clear();
+                            _discount.clear();
                           } on Exception catch (e) {
                             RouteController().pop(context);
-                            PopUp().showError(e, context);
+                            PopUp().showError(e.toString(), context);
                           }
                         }
                       : null,

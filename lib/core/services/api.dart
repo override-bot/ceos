@@ -21,6 +21,22 @@ class Api {
     return ref.where(field, isEqualTo: param).get();
   }
 
+  Future<QuerySnapshot> getWhereIsEqualToLimited(param, field) {
+    return ref.where(field, isEqualTo: param).limit(6).get();
+  }
+
+  Future<QuerySnapshot> getRecentDocs() async {
+    final Timestamp now = Timestamp.fromDate(DateTime.now());
+    final Timestamp yesterday = Timestamp.fromDate(
+      DateTime.now().subtract(const Duration(days: 1)),
+    );
+
+    return ref
+        .where('dateAdded', isLessThan: now, isGreaterThan: yesterday)
+        .where('isFlash', isEqualTo: true)
+        .get();
+  }
+
   Future updateDocument(field, value, docId) {
     return ref.doc(docId).update({field: value});
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:ceos/core/viewmodels/user_viewmodel.dart';
 import 'package:ceos/ui/shared/textfield.dart';
 import 'package:ceos/ui/widgets/profile_picture.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:ceos/core/services/authentication.dart';
 import 'package:ceos/ui/shared/popup.dart';
