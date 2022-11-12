@@ -21,8 +21,8 @@ class Api {
     return ref.where(field, isEqualTo: param).get();
   }
 
-  Future<QuerySnapshot> getWhereIsEqualToLimited(param, field) {
-    return ref.where(field, isEqualTo: param).limit(6).get();
+  Future<QuerySnapshot> getWhereIsEqualToLimited(param, field, limit) {
+    return ref.where(field, isEqualTo: param).limit(limit).get();
   }
 
   Future<QuerySnapshot> getRecentDocs() async {

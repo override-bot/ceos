@@ -15,19 +15,21 @@ class ProductViewmodel extends ChangeNotifier {
   File? get image => _image;
   final Api _api = Api("products");
   List<Product> products = [];
+
   List<Product> flashes = [];
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
   }
 
-  Future<List<Product>> getTopSix() async {
-    var result = await _api.getWhereIsEqualToLimited(false, "isFlash");
+  Future<List<Product>> getRecommendedItems() async {
+    var result = await _api.getWhereIsEqualTo(false, "isFlash");
     products = result.docs
         .map((doc) =>
             Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
         .toList();
-    return products;
+    products.shuffle();
+    return products.take(6).toList();
   }
 
   Future<List<Product>> getFlashSales() async {

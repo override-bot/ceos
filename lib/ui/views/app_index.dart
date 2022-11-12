@@ -28,7 +28,15 @@ class AppIndexState extends State<AppIndex> {
         backgroundColor: ceoWhite,
         elevation: 0.0,
         actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                color: ceoPurple,
+              )),
           MaterialButton(
+            minWidth: 12,
+            padding: EdgeInsets.all(0),
             onPressed: () {},
             child: Badge(
               badgeColor: ceoPink,
@@ -38,9 +46,12 @@ class AppIndexState extends State<AppIndex> {
                 style:
                     TextStyle(color: ceoWhite, fontSize: TextSize().p(context)),
               ),
-              child: Icon(Icons.shopping_cart_rounded),
+              child: Icon(
+                Icons.shopping_cart_rounded,
+                color: ceoPurple,
+              ),
             ),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: Theme(
