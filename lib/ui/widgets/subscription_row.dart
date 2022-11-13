@@ -42,7 +42,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                         child: Row(
                           children: [
                             Text(
-                              "Vendors you subscribed to",
+                              "Vendors you follow",
                               style: TextStyle(
                                   color: ceoPurple,
                                   fontSize: TextSize().h3(context),

@@ -38,12 +38,24 @@ class _FlashRowState extends State<FlashRow> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Flash sales ⚡️",
-                        style: TextStyle(
-                            color: ceoPurple,
-                            fontSize: TextSize().h3(context),
-                            fontWeight: FontWeight.w600),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Flash sales ⚡️",
+                            style: TextStyle(
+                                color: ceoPurple,
+                                fontSize: TextSize().h3(context),
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "Expires after 24 hours",
+                            style: TextStyle(
+                                color: ceoPurpleGrey,
+                                fontSize: TextSize().custom(11, context),
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,

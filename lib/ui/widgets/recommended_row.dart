@@ -34,12 +34,24 @@ class _RecommendedState extends State<Recommended> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Recommended for you",
-                        style: TextStyle(
-                            color: ceoPurple,
-                            fontSize: TextSize().h3(context),
-                            fontWeight: FontWeight.w600),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Recommended for you",
+                            style: TextStyle(
+                                color: ceoPurple,
+                                fontSize: TextSize().h3(context),
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "Based on recent activity",
+                            style: TextStyle(
+                                color: ceoPurpleGrey,
+                                fontSize: TextSize().custom(11, context),
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,

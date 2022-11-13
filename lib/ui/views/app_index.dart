@@ -47,7 +47,7 @@ class AppIndexState extends State<AppIndex> {
           unselectedItemColor: ceoPurple,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          elevation: 0.0,
+          elevation: 5.0,
           // ignore: prefer_const_literals_to_create_immutables
           items: [
             BottomNavigationBarItem(
