@@ -24,7 +24,7 @@ class FlashProductCard extends StatefulWidget {
 }
 
 class FlashProductCardState extends State<FlashProductCard> {
-  var formatter = NumberFormat('#,##,000');
+  var formatter = NumberFormat('#,###,000');
   @override
   Widget build(BuildContext context) {
     return Container(

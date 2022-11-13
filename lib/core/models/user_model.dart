@@ -10,6 +10,7 @@ class Ceo {
   final String? bio;
   final String? imageUrl;
   final String? username;
+  final List? subscribers;
   Ceo(
       {this.id,
       this.bio,
@@ -20,11 +21,13 @@ class Ceo {
       this.phoneNumber,
       this.twitterLink,
       this.imageUrl,
+      this.subscribers,
       this.whatsappLink,
       this.username});
   Ceo.fromMap(Map snapshot, this.id)
       : bio = snapshot['bio'],
         ceoScore = snapshot['ceoScore'],
+        subscribers = snapshot['subscribers'],
         username = snapshot['username'],
         firstname = snapshot['firstname'],
         lastname = snapshot['lastname'],
@@ -44,7 +47,8 @@ class Ceo {
       'whatsappLink': whatsappLink,
       'imageUrl': imageUrl,
       'twitterLink': twitterLink,
-      'username': username
+      'username': username,
+      "subscribers": subscribers,
     };
   }
 }

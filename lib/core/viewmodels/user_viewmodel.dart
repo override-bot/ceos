@@ -48,6 +48,12 @@ class UserViewmodel extends ChangeNotifier {
     return result;
   }
 
+  Future addCeoScore(userId) async {
+    var result = await getCeoById(userId);
+    int? ceoScore = result.ceoScore;
+    _api.updateDocument("ceoScore", ceoScore! + 1, userId);
+  }
+
   setImage(photo) {
     _image = photo;
     notifyListeners();

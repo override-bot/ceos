@@ -230,21 +230,24 @@ class AddProductState extends State<AddProduct> {
                       ? () async {
                           PopUp().popLoad(context);
                           try {
+                            var userData = await userViewModel
+                                .getCeoById(authService.userId);
+                            List? subscribers = userData.subscribers;
                             await productViewmodel.setImageUrl(
                                 productViewmodel.image,
                                 authService.userId! +
                                     DateTime.now().toIso8601String());
                             productViewmodel.addProduct(Product(
-                              dateAdded: DateTime.now(),
-                              description: _description.text,
-                              isDiscounted: false,
-                              isFlash: false,
-                              price: int.parse(_priceField.text),
-                              productImage: productViewmodel.imageUrl,
-                              category: productViewmodel.category,
-                              sellerId: authService.userId,
-                              productName: _pnameField.text,
-                            ));
+                                dateAdded: DateTime.now(),
+                                description: _description.text,
+                                isDiscounted: false,
+                                isFlash: false,
+                                price: int.parse(_priceField.text),
+                                productImage: productViewmodel.imageUrl,
+                                category: productViewmodel.category,
+                                sellerId: authService.userId,
+                                productName: _pnameField.text,
+                                subscribers: subscribers));
 
                             productViewmodel.setCategory(null);
                             productViewmodel.setImage(null);
@@ -254,6 +257,7 @@ class AddProductState extends State<AddProduct> {
                             _description.clear();
                             _pnameField.clear();
                             _priceField.clear();
+                            userViewModel.addCeoScore(authService.userId);
                           } on Exception catch (e) {
                             RouteController().pop(context);
                             PopUp().showError(e.toString(), context);

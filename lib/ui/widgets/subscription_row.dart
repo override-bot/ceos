@@ -3,7 +3,6 @@
 import 'package:ceos/core/models/product_model.dart';
 import 'package:ceos/ui/widgets/product_card.dart';
 import 'package:ceos/utils/color.dart';
-import 'package:ceos/utils/flash_percent.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,25 +10,24 @@ import 'package:provider/provider.dart';
 import '../../core/services/authentication.dart';
 import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
-import 'flash_product_card.dart';
 
-class FlashRow extends StatefulWidget {
-  const FlashRow({Key? key}) : super(key: key);
+class Subscriptions extends StatefulWidget {
+  const Subscriptions({Key? key}) : super(key: key);
 
   @override
-  State<FlashRow> createState() => _FlashRowState();
+  State<Subscriptions> createState() => _SubscriptionsState();
 }
 
-class _FlashRowState extends State<FlashRow> {
+class _SubscriptionsState extends State<Subscriptions> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
     final productViewmodel = Provider.of<ProductViewmodel>(context);
     return Container(
-      margin: EdgeInsets.only(top: 4),
+      margin: EdgeInsets.only(top: 7),
       child: FutureBuilder<List<Product>>(
-        future: productViewmodel.getFlashSales(),
+        future: productViewmodel.getSubscribedItems(authService.userId),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data?.length != 0) {
             return Container(
@@ -38,27 +36,38 @@ class _FlashRowState extends State<FlashRow> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Flash sales ⚡️",
-                        style: TextStyle(
-                            color: ceoPurple,
-                            fontSize: TextSize().h3(context),
-                            fontWeight: FontWeight.w600),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(right: 0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Vendors you subscribed to",
+                              style: TextStyle(
+                                  color: ceoPurple,
+                                  fontSize: TextSize().h3(context),
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Expanded(child: Container()),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.arrow_forward,
+                                  color: ceoPurpleGrey,
+                                  size: TextSize().custom(15, context),
+                                ))
+                          ],
+                        ),
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 3,
+                          height: MediaQuery.of(context).size.height / 2.75,
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: snapshot.data?.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return FlashProductCard(
-                                  discountPercentage: getFlashPercent(
-                                      snapshot.data?[index].price,
-                                      snapshot.data?[index].discountPrice),
-                                  discountPrice:
-                                      snapshot.data?[index].discountPrice,
+                                return ProductCard(
                                   price: snapshot.data?[index].price,
                                   url: snapshot.data?[index].productImage,
                                   productName:
@@ -99,6 +108,7 @@ class _FlashRowState extends State<FlashRow> {
                   ],
                 ));
           } else {
+            print(snapshot.error);
             return Container(
               height: 0,
             );

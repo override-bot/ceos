@@ -64,10 +64,18 @@ class Api {
     return ref.doc(id).set(data);
   }
 
-  Future<QuerySnapshot> queryWhereArrayContains(param, field) {
+  Future<QuerySnapshot> queryWhereArrayContainsAndIsEqualTo(
+      param, field, value, fieldB) {
     return ref
-        .where(field, arrayContains: param)
-        .orderBy("rating", descending: true)
+        .where(fieldB, arrayContains: value)
+        .where(field, isEqualTo: param)
+        .get();
+  }
+
+  Future<QuerySnapshot> queryWhereEqualTox2(param, field, value, fieldB) {
+    return ref
+        .where(fieldB, isEqualTo: value)
+        .where(field, isEqualTo: param)
         .get();
   }
 

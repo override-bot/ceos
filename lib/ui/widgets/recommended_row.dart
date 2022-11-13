@@ -38,12 +38,12 @@ class _RecommendedState extends State<Recommended> {
                         "Recommended for you",
                         style: TextStyle(
                             color: ceoPurple,
-                            fontSize: TextSize().h2(context),
+                            fontSize: TextSize().h3(context),
                             fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 2.75,
+                          height: MediaQuery.of(context).size.height / 2.8,
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: snapshot.data?.length,

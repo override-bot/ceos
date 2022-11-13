@@ -152,6 +152,7 @@ class SocialsState extends State<Socials> {
                                       userViewModel
                                           .addUser(
                                               Ceo(
+                                                  subscribers: [],
                                                   ceoScore: 0,
                                                   whatsappLink: userViewModel
                                                       .whatsappLink,

@@ -256,6 +256,9 @@ class AddFlashState extends State<AddFlash> {
                       ? () async {
                           PopUp().popLoad(context);
                           try {
+                            var userData = await userViewModel
+                                .getCeoById(authService.userId);
+                            List subscribers = userData.subscribers!;
                             await productViewmodel.setImageUrl(
                                 productViewmodel.image,
                                 productViewmodel.image?.path);
@@ -267,6 +270,7 @@ class AddFlashState extends State<AddFlash> {
                                 price: int.parse(_priceField.text),
                                 productImage: productViewmodel.imageUrl,
                                 category: productViewmodel.category,
+                                subscribers: subscribers,
                                 sellerId: authService.userId,
                                 productName: _pnameField.text,
                                 discountPrice: int.parse(_discount.text)));
@@ -281,6 +285,7 @@ class AddFlashState extends State<AddFlash> {
                             _pnameField.clear();
                             _priceField.clear();
                             _discount.clear();
+                            userViewModel.addCeoScore(authService.userId);
                           } on Exception catch (e) {
                             RouteController().pop(context);
                             PopUp().showError(e.toString(), context);

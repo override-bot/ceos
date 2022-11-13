@@ -17,9 +17,22 @@ class ProductViewmodel extends ChangeNotifier {
   List<Product> products = [];
 
   List<Product> flashes = [];
+  List<Product> gifts = [];
+  List<Product> subscriptions = [];
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
+  }
+
+  Future<List<Product>> getSubscribedItems(userId) async {
+    var result = await _api.queryWhereArrayContainsAndIsEqualTo(
+        false, "isFlash", userId, "subscribers");
+    subscriptions = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+
+    return subscriptions;
   }
 
   Future<List<Product>> getRecommendedItems() async {
@@ -30,6 +43,17 @@ class ProductViewmodel extends ChangeNotifier {
         .toList();
     products.shuffle();
     return products.take(6).toList();
+  }
+
+  Future<List<Product>> getGiftItems() async {
+    var result =
+        await _api.queryWhereEqualTox2(false, "isFlash", "Gifts", "category");
+    gifts = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+    gifts.shuffle();
+    return gifts.take(12).toList();
   }
 
   Future<List<Product>> getFlashSales() async {

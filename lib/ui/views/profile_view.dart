@@ -141,6 +141,11 @@ class ProfileState extends State<ProfileView> {
                                 text: "Flash sale",
                               ),
                               TextIcon(
+                                onPressed: () {
+                                  PopUp().showError(
+                                      "This feature is not yet available",
+                                      context);
+                                },
                                 icon: Icons.delivery_dining,
                                 color: Colors.green,
                                 text: "Your orders",
@@ -169,6 +174,7 @@ class ProfileState extends State<ProfileView> {
                   ),
                 );
               } else {
+                print(snapshot.error);
                 return Container();
               }
             }),
