@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:ceos/core/models/user_model.dart';
 import 'package:ceos/core/services/api.dart';
 import 'package:ceos/core/services/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserViewmodel extends ChangeNotifier {
@@ -34,6 +35,10 @@ class UserViewmodel extends ChangeNotifier {
     return Ceo.fromMap(doc.data() as Map<String, dynamic>, id);
   }
 
+  Stream<DocumentSnapshot> streamCeoById(id) {
+    return _api.streamDocumentById(id);
+  }
+
   Future<bool> checkIfUser(userId) async {
     var result = await _api.getDocumentById(userId);
     if (result.exists) {
@@ -52,6 +57,20 @@ class UserViewmodel extends ChangeNotifier {
     var result = await getCeoById(userId);
     int? ceoScore = result.ceoScore;
     _api.updateDocument("ceoScore", ceoScore! + 1, userId);
+  }
+
+  Future subscribe(userId, ceoId) async {
+    var result = await getCeoById(ceoId);
+    List subscribers = result.subscribers!;
+    subscribers.add(userId);
+    _api.updateDocument("subscribers", subscribers, ceoId);
+  }
+
+  Future unsubscribe(userId, ceoId) async {
+    var result = await getCeoById(ceoId);
+    List subscribers = result.subscribers!;
+    subscribers.remove(userId);
+    _api.updateDocument("subscribers", subscribers, ceoId);
   }
 
   setImage(photo) {

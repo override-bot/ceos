@@ -14,14 +14,14 @@ import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
 import '../views/product_details.dart';
 
-class Gifts extends StatefulWidget {
-  const Gifts({Key? key}) : super(key: key);
+class Fitness extends StatefulWidget {
+  const Fitness({Key? key}) : super(key: key);
 
   @override
-  State<Gifts> createState() => _GiftsState();
+  State<Fitness> createState() => _FitnessState();
 }
 
-class _GiftsState extends State<Gifts> {
+class _FitnessState extends State<Fitness> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -30,7 +30,7 @@ class _GiftsState extends State<Gifts> {
     return Container(
       margin: EdgeInsets.only(top: 7),
       child: FutureBuilder<List<Product>>(
-        future: productViewmodel.getGiftItems(),
+        future: productViewmodel.getFitnessItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data?.length != 0) {
             return Container(
@@ -45,7 +45,7 @@ class _GiftsState extends State<Gifts> {
                         child: Row(
                           children: [
                             Text(
-                              "Overaw best in gifting🎁",
+                              "Stay fit with ceos🏋🏽",
                               style: TextStyle(
                                   color: ceoPurple,
                                   fontSize: TextSize().h3(context),
@@ -57,9 +57,9 @@ class _GiftsState extends State<Gifts> {
                                   RouteController().push(
                                       context,
                                       CustomGridView(
-                                        gridCategory: "Gift items",
+                                        gridCategory: "Gym equipments",
                                         categoryProducts:
-                                            productViewmodel.getGiftItems(),
+                                            productViewmodel.getFitnessItems(),
                                       ));
                                 },
                                 icon: Icon(

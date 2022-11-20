@@ -10,18 +10,26 @@ class ProductViewmodel extends ChangeNotifier {
   String? _category;
   String? _imageUrl;
   File? _image;
+  Product? _product;
   String? get category => _category;
+  Product? get product => _product;
   String? get imageUrl => _imageUrl;
   File? get image => _image;
   final Api _api = Api("products");
   List<Product> products = [];
-
+  List<Product> fitness = [];
   List<Product> flashes = [];
   List<Product> gifts = [];
+  List<Product> categoryProducts = [];
   List<Product> subscriptions = [];
+  List<Product> ceoProducts = [];
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
+  }
+
+  void setCurrentProduct(currentProduct) {
+    _product = currentProduct;
   }
 
   Future<List<Product>> getSubscribedItems(userId) async {
@@ -45,6 +53,17 @@ class ProductViewmodel extends ChangeNotifier {
     return products.take(6).toList();
   }
 
+  Future<List<Product>> getCeoProducts(uid) async {
+    var result =
+        await _api.queryWhereEqualTox2(false, "isFlash", uid, "sellerId");
+    ceoProducts = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+
+    return ceoProducts.take(10).toList();
+  }
+
   Future<List<Product>> getGiftItems() async {
     var result =
         await _api.queryWhereEqualTox2(false, "isFlash", "Gifts", "category");
@@ -54,6 +73,28 @@ class ProductViewmodel extends ChangeNotifier {
         .toList();
     gifts.shuffle();
     return gifts.take(12).toList();
+  }
+
+  Future<List<Product>> getCategoryProd(category) async {
+    var result =
+        await _api.queryWhereEqualTox2(false, "isFlash", category, "category");
+    categoryProducts = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+
+    return categoryProducts;
+  }
+
+  Future<List<Product>> getFitnessItems() async {
+    var result = await _api.queryWhereEqualTox2(
+        false, "isFlash", "Gym equipment", "category");
+    fitness = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+    fitness.shuffle();
+    return fitness.take(12).toList();
   }
 
   Future<List<Product>> getFlashSales() async {

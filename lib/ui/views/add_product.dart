@@ -143,6 +143,7 @@ class AddProductState extends State<AddProduct> {
               ),
               Center(
                 child: CustomTextField(
+                  maxChar: 150,
                   errorText: isdescp == false
                       ? "Product description is required"
                       : null,

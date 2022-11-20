@@ -17,6 +17,10 @@ class Api {
     return ref.snapshots();
   }
 
+  Stream<DocumentSnapshot> streamDocumentById(id) {
+    return ref.doc(id).snapshots();
+  }
+
   Future<QuerySnapshot> getWhereIsEqualTo(param, field) {
     return ref.where(field, isEqualTo: param).get();
   }

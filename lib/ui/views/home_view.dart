@@ -2,6 +2,7 @@
 
 import 'package:ceos/ui/widgets/flash_sale_row.dart';
 import 'package:ceos/ui/widgets/gifts_row.dart';
+import 'package:ceos/ui/widgets/gym_equipment_row.dart';
 import 'package:ceos/ui/widgets/recommended_row.dart';
 import 'package:ceos/ui/widgets/subscription_row.dart';
 import 'package:ceos/utils/color.dart';
@@ -24,7 +25,13 @@ class _HomeState extends State<Home> {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [FlashRow(), Recommended(), Subscriptions(), Gifts()],
+          children: [
+            FlashRow(),
+            Recommended(),
+            Subscriptions(),
+            Gifts(),
+            Fitness()
+          ],
         ),
       ),
     );

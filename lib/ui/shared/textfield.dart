@@ -2,6 +2,7 @@
 
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? prefix;
   final int? maxLines;
   final int? minLines;
+  final int? maxChar;
 
   // ignore: use_key_in_widget_constructors
   const CustomTextField(
@@ -29,7 +31,8 @@ class CustomTextField extends StatefulWidget {
       required this.controller,
       this.errorText,
       this.obscureText,
-      this.isEnabled});
+      this.isEnabled,
+      this.maxChar});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -44,6 +47,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         padding: EdgeInsets.only(top: 5),
         width: MediaQuery.of(context).size.width / 1.1,
         child: TextFormField(
+          maxLength: widget.maxChar,
+          maxLengthEnforcement: MaxLengthEnforcement.enforced,
           minLines: widget.minLines,
           maxLines: widget.maxLines,
           onChanged: (text) {

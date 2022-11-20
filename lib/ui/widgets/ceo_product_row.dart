@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:ceos/core/models/product_model.dart';
+import 'package:ceos/core/models/user_model.dart';
 import 'package:ceos/ui/widgets/custom_grid_view.dart';
 import 'package:ceos/ui/widgets/product_card.dart';
+import 'package:ceos/ui/widgets/subButton.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:ceos/utils/router.dart';
@@ -14,14 +16,14 @@ import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
 import '../views/product_details.dart';
 
-class Gifts extends StatefulWidget {
-  const Gifts({Key? key}) : super(key: key);
+class CeoProducts extends StatefulWidget {
+  const CeoProducts({Key? key}) : super(key: key);
 
   @override
-  State<Gifts> createState() => _GiftsState();
+  State<CeoProducts> createState() => _CeoProductsState();
 }
 
-class _GiftsState extends State<Gifts> {
+class _CeoProductsState extends State<CeoProducts> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -30,11 +32,12 @@ class _GiftsState extends State<Gifts> {
     return Container(
       margin: EdgeInsets.only(top: 7),
       child: FutureBuilder<List<Product>>(
-        future: productViewmodel.getGiftItems(),
+        future:
+            productViewmodel.getCeoProducts(productViewmodel.product?.sellerId),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data?.length != 0) {
             return Container(
-                margin: EdgeInsets.only(top: 10, left: 5),
+                margin: EdgeInsets.only(top: 10, left: 11),
                 width: double.infinity,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +48,7 @@ class _GiftsState extends State<Gifts> {
                         child: Row(
                           children: [
                             Text(
-                              "Overaw best in gifting🎁",
+                              "More by this vendor",
                               style: TextStyle(
                                   color: ceoPurple,
                                   fontSize: TextSize().h3(context),
@@ -57,9 +60,13 @@ class _GiftsState extends State<Gifts> {
                                   RouteController().push(
                                       context,
                                       CustomGridView(
-                                        gridCategory: "Gift items",
-                                        categoryProducts:
-                                            productViewmodel.getGiftItems(),
+                                        action: SubscriptionButton(
+                                            uid: productViewmodel
+                                                .product?.sellerId),
+                                        gridCategory: "More by this vendor",
+                                        categoryProducts: productViewmodel
+                                            .getCeoProducts(productViewmodel
+                                                .product?.sellerId),
                                       ));
                                 },
                                 icon: Icon(

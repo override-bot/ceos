@@ -1,7 +1,9 @@
 import 'package:ceos/core/models/product_model.dart';
+import 'package:ceos/ui/views/product_details.dart';
 import 'package:ceos/ui/widgets/product_card.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
+import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +64,12 @@ class _RecommendedState extends State<Recommended> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return ProductCard(
+                                  onTapped: () {
+                                    RouteController()
+                                        .push(context, ProductDetails());
+                                    productViewmodel.setCurrentProduct(
+                                        snapshot.data?[index]);
+                                  },
                                   price: snapshot.data?[index].price,
                                   url: snapshot.data?[index].productImage,
                                   productName:

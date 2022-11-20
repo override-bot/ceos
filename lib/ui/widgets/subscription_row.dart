@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:ceos/core/models/product_model.dart';
+import 'package:ceos/ui/widgets/custom_grid_view.dart';
 import 'package:ceos/ui/widgets/product_card.dart';
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
+import 'package:ceos/utils/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/services/authentication.dart';
 import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
+import '../views/product_details.dart';
 
 class Subscriptions extends StatefulWidget {
   const Subscriptions({Key? key}) : super(key: key);
@@ -41,16 +44,37 @@ class _SubscriptionsState extends State<Subscriptions> {
                         margin: EdgeInsets.only(right: 0),
                         child: Row(
                           children: [
-                            Text(
-                              "Vendors you follow",
-                              style: TextStyle(
-                                  color: ceoPurple,
-                                  fontSize: TextSize().h3(context),
-                                  fontWeight: FontWeight.w600),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Vendors you follow",
+                                  style: TextStyle(
+                                      color: ceoPurple,
+                                      fontSize: TextSize().h3(context),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "Latest items from vendors your follow",
+                                  style: TextStyle(
+                                      color: ceoPurpleGrey,
+                                      fontSize: TextSize().custom(11, context),
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
                             Expanded(child: Container()),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  RouteController().push(
+                                      context,
+                                      CustomGridView(
+                                        categoryProducts:
+                                            productViewmodel.getSubscribedItems(
+                                                authService.userId),
+                                        gridCategory: "Vendors your follow",
+                                      ));
+                                },
                                 icon: Icon(
                                   Icons.arrow_forward,
                                   color: ceoPurpleGrey,
@@ -61,13 +85,19 @@ class _SubscriptionsState extends State<Subscriptions> {
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 2.75,
+                          height: MediaQuery.of(context).size.height / 2.8,
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: snapshot.data?.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return ProductCard(
+                                  onTapped: () {
+                                    RouteController()
+                                        .push(context, ProductDetails());
+                                    productViewmodel.setCurrentProduct(
+                                        snapshot.data?[index]);
+                                  },
                                   price: snapshot.data?[index].price,
                                   url: snapshot.data?[index].productImage,
                                   productName:

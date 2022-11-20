@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:badges/badges.dart';
+import 'package:ceos/ui/views/categories.dart';
 import 'package:ceos/ui/views/home_view.dart';
 import 'package:ceos/ui/views/profile_view.dart';
 import 'package:ceos/ui/widgets/avatar.dart';
@@ -18,13 +19,20 @@ class AppIndex extends StatefulWidget {
 
 class AppIndexState extends State<AppIndex> {
   int currentIndex = 0;
-  List children = [Home(), Container(), Container(), ProfileView()];
+  List children = [Home(), CategoriesView(), Container(), ProfileView()];
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: Avatar(),
+        title: currentIndex == 1
+            ? Text(
+                'Categories',
+                style: TextStyle(
+                    color: ceoPurple, fontSize: TextSize().h2(context)),
+              )
+            : null,
+        leading: currentIndex != 3 ? Avatar() : null,
         backgroundColor: ceoWhite,
         elevation: 0.0,
         actions: [

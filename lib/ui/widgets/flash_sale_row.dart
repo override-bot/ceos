@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import '../../core/services/authentication.dart';
 import '../../core/viewmodels/product_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
+import '../../utils/router.dart';
+import '../views/product_details.dart';
 import 'flash_product_card.dart';
 
 class FlashRow extends StatefulWidget {
@@ -59,13 +61,19 @@ class _FlashRowState extends State<FlashRow> {
                       ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 3,
+                          height: MediaQuery.of(context).size.height / 2.8,
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: snapshot.data?.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return FlashProductCard(
+                                  onTap: () {
+                                    RouteController()
+                                        .push(context, ProductDetails());
+                                    productViewmodel.setCurrentProduct(
+                                        snapshot.data?[index]);
+                                  },
                                   discountPercentage: getFlashPercent(
                                       snapshot.data?[index].price,
                                       snapshot.data?[index].discountPrice),
