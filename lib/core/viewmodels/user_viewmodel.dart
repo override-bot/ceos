@@ -25,14 +25,38 @@ class UserViewmodel extends ChangeNotifier {
   String? get instagramLink => _instagramLink;
   String? get imageUrl => _imageUrl;
   File? get image => _image;
+  Ceo? _currentCeo;
+  Ceo? get currentCeo => _currentCeo;
   final Api _api = Api("users");
   Future<void> setImageUrl(image, uid) async {
     _imageUrl = await Storage().uploadImage(image, uid, "Users");
   }
 
+  setCeo(Ceo cceo) {
+    _currentCeo = cceo;
+  }
+
   Future<Ceo> getCeoById(id) async {
     var doc = await _api.getDocumentById(id);
     return Ceo.fromMap(doc.data() as Map<String, dynamic>, id);
+  }
+
+  updateName(first, second, uid, username) {
+    _api.updateDocumentMap(
+        {"firstname": first, "lastname": second, "username": username}, uid);
+  }
+
+  updateImage(imageUrl, uid) {
+    _api.updateDocumentMap({"imageUrl": imageUrl}, uid);
+  }
+
+  updateSocials(insta, whatsapp, twitter, phoneNumber, uid) {
+    _api.updateDocumentMap({
+      'instagramLink': insta,
+      'phoneNumber': phoneNumber,
+      'whatsappLink': whatsapp,
+      'twitterLink': twitter
+    }, uid);
   }
 
   Stream<DocumentSnapshot> streamCeoById(id) {

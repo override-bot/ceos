@@ -1,16 +1,16 @@
 class Ceo {
-  final String? id;
-  final String? firstname;
-  final String? lastname;
-  final int? ceoScore;
-  final String? phoneNumber;
-  final String? instagramLink;
-  final String? whatsappLink;
-  final String? twitterLink;
-  final String? bio;
-  final String? imageUrl;
-  final String? username;
-  final List? subscribers;
+  String? id;
+  String? firstname;
+  String? lastname;
+  int? ceoScore;
+  String? phoneNumber;
+  String? instagramLink;
+  String? whatsappLink;
+  String? twitterLink;
+  String? bio;
+  String? imageUrl;
+  String? username;
+  List? subscribers;
   Ceo(
       {this.id,
       this.bio,

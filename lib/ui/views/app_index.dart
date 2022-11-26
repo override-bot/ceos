@@ -19,7 +19,7 @@ class AppIndex extends StatefulWidget {
 
 class AppIndexState extends State<AppIndex> {
   int currentIndex = 0;
-  List children = [Home(), CategoriesView(), Container(), ProfileView()];
+  List children = [Home(), CategoriesView(), ProfileView()];
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -68,12 +68,6 @@ class AppIndexState extends State<AppIndex> {
                 label: "",
                 icon: Icon(
                   Icons.category_outlined,
-                  size: 20,
-                )),
-            BottomNavigationBarItem(
-                label: "",
-                icon: Icon(
-                  Icons.bar_chart_outlined,
                   size: 20,
                 )),
             BottomNavigationBarItem(

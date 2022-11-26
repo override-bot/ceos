@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Api {
+class SubApi {
   final db = FirebaseFirestore.instance;
   final String path;
+  final String subpath;
+  final String id;
   late CollectionReference ref;
 
-  Api(this.path) {
-    ref = db.collection(path);
+  SubApi(this.path, this.subpath, this.id) {
+    ref = db.collection(path).doc(id).collection(subpath);
   }
 
   Future<QuerySnapshot> getDocuments() async {

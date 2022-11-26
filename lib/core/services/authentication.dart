@@ -36,6 +36,12 @@ class AuthenticationService extends ChangeNotifier {
     setAuthState(false);
   }
 
+  Future deleteAccount() async {
+    await auth.currentUser?.delete();
+    setUserId(null);
+    setAuthState(false);
+  }
+
   Future<User?> register(email, password) async {
     try {
       final UserCredential userCredential = await auth

@@ -23,9 +23,16 @@ class ProductViewmodel extends ChangeNotifier {
   List<Product> categoryProducts = [];
   List<Product> subscriptions = [];
   List<Product> ceoProducts = [];
+  List<Product> ceoFlash = [];
+  BuildContext? _context;
+  BuildContext? get context => _context;
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
+  }
+
+  setCurrentContext(ctx) {
+    _context = ctx;
   }
 
   void setCurrentProduct(currentProduct) {
@@ -61,7 +68,27 @@ class ProductViewmodel extends ChangeNotifier {
             Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
         .toList();
 
-    return ceoProducts.take(10).toList();
+    return ceoProducts;
+  }
+
+  Future<List<Product>> getCeoFlash(uid) async {
+    var result = await _api.getRecentDocsCeo(uid);
+    ceoFlash = result.docs
+        .map((doc) =>
+            Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .toList();
+
+    return ceoFlash;
+  }
+
+  setAsFlash(productId, newPrice) {
+    _api.updateDocument("isFlash", true, productId);
+    _api.updateDocument("dateAdded", DateTime.now(), productId);
+    _api.updateDocument("discountPrice", newPrice, productId);
+  }
+
+  deleteProduct(productId) {
+    _api.deleteDocument(productId);
   }
 
   Future<List<Product>> getGiftItems() async {
