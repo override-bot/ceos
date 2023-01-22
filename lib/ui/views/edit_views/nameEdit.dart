@@ -27,9 +27,9 @@ class FullnameEditState extends State<FullnameEdit> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
-    _firstName.text = userViewModel.currentCeo!.firstname!;
-    _lastName.text = userViewModel.currentCeo!.lastname!;
-    _username.text = userViewModel.currentCeo!.username!;
+    _firstName.text = userViewModel.firstname!;
+    _lastName.text = userViewModel.lastname!;
+    _username.text = userViewModel.username!;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -86,15 +86,22 @@ class FullnameEditState extends State<FullnameEdit> {
                       child: Container(
                           margin: EdgeInsets.only(top: 15),
                           child: CustomTextField(
+                            onChanged: (text) {
+                              userViewModel.setFirstname(text);
+                            },
                             hintText: "First name",
 
                             controller: _firstName,
+
                             // prefix: Icons.person_outline_rounded,
                           ))),
                   Center(
                       child: Container(
                           // margin: EdgeInsets.only(top),
                           child: CustomTextField(
+                    onChanged: (text) {
+                      userViewModel.setLastname(text);
+                    },
                     hintText: "Last name",
                     controller: _lastName,
                     // prefix: Icons.person_outline_rounded,
@@ -103,6 +110,9 @@ class FullnameEditState extends State<FullnameEdit> {
                       child: Container(
                           margin: EdgeInsets.only(top: 15),
                           child: CustomTextField(
+                            onChanged: (text) {
+                              userViewModel.setUsername(text);
+                            },
                             hintText: "Username",
 
                             controller: _username,
@@ -134,7 +144,7 @@ class FullnameEditState extends State<FullnameEdit> {
                         } else {
                           await userViewModel.updateName(
                               userViewModel.currentCeo!.firstname,
-                              userViewModel.currentCeo!.firstname,
+                              userViewModel.currentCeo!.lastname,
                               authService.userId,
                               _username.text);
                           setState(() {});

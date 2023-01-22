@@ -98,6 +98,13 @@ class _SettingsState extends State<Settings> {
                   width: MediaQuery.of(context).size.width,
                   child: ListTile(
                     onTap: () {
+                      userViewModel
+                          .setFirstname(userViewModel.currentCeo?.firstname);
+                      userViewModel
+                          .setLastname(userViewModel.currentCeo?.lastname);
+                      userViewModel
+                          .setUsername(userViewModel.currentCeo?.username);
+
                       RouteController().push(context, FullnameEdit());
                     },
                     contentPadding: EdgeInsets.zero,
@@ -129,6 +136,14 @@ class _SettingsState extends State<Settings> {
                   width: MediaQuery.of(context).size.width,
                   child: ListTile(
                     onTap: () {
+                      userViewModel.setInstagramLink(
+                          userViewModel.currentCeo?.instagramLink);
+                      userViewModel.setTwitterLink(
+                          userViewModel.currentCeo?.twitterLink);
+                      userViewModel.setWhatsappLink(
+                          userViewModel.currentCeo?.whatsappLink);
+                      userViewModel.setPhoneNumber(
+                          userViewModel.currentCeo?.phoneNumber);
                       RouteController().push(context, SocialsEdit());
                     },
                     contentPadding: EdgeInsets.zero,

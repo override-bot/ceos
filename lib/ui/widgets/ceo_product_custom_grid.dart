@@ -29,7 +29,8 @@ class _CeoCustomGridState extends State<CeoCustomGrid> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
-    final productViewmodel = Provider.of<ProductViewmodel>(context);
+    final productViewmodel =
+        Provider.of<ProductViewmodel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,

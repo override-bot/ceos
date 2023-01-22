@@ -28,10 +28,10 @@ class SocialsEditState extends State<SocialsEdit> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
-    _phoneField.text = userViewModel.currentCeo!.phoneNumber!;
-    _iglink.text = userViewModel.currentCeo?.instagramLink ?? "";
-    _twlink.text = userViewModel.currentCeo?.twitterLink ?? "";
-    _walink.text = userViewModel.currentCeo?.whatsappLink ?? "";
+    _phoneField.text = userViewModel.phoneNumber!;
+    _iglink.text = userViewModel.instagramLink ?? "";
+    _twlink.text = userViewModel.twitterLink ?? "";
+    _walink.text = userViewModel.whatsappLink ?? "";
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,
@@ -90,7 +90,9 @@ class SocialsEditState extends State<SocialsEdit> {
                                   margin: EdgeInsets.only(top: 15),
                                   child: CustomTextField(
                                     hintText: "Phone number",
-
+                                    onChanged: (text) {
+                                      userViewModel.setPhoneNumber(text);
+                                    },
                                     controller: _phoneField,
                                     // prefix: Icons.person_outline_rounded,
                                   ))),
@@ -98,13 +100,18 @@ class SocialsEditState extends State<SocialsEdit> {
                               child: Container(
                                   child: CustomTextField(
                             hintText: "Twitter link (optional)",
-
+                            onChanged: (text) {
+                              userViewModel.setTwitterLink(text);
+                            },
                             controller: _twlink,
                             // prefix: Icons.person_outline_rounded,
                           ))),
                           Center(
                               child: Container(
                                   child: CustomTextField(
+                            onChanged: (text) {
+                              userViewModel.setWhatsappLink(text);
+                            },
                             hintText: "Whatsapp link (optional)",
 
                             controller: _walink,
@@ -113,6 +120,9 @@ class SocialsEditState extends State<SocialsEdit> {
                           Center(
                               child: Container(
                                   child: CustomTextField(
+                            onChanged: (text) {
+                              userViewModel.setInstagramLink(text);
+                            },
                             hintText: "Instagram link (optional)",
 
                             controller: _iglink,

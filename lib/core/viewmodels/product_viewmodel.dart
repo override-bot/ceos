@@ -25,7 +25,13 @@ class ProductViewmodel extends ChangeNotifier {
   List<Product> ceoProducts = [];
   List<Product> ceoFlash = [];
   BuildContext? _context;
+  List<Product>? _currentList;
+  List<Product>? get currentList => _currentList;
   BuildContext? get context => _context;
+  setCurrentList(clist) {
+    _currentList = clist;
+  }
+
   void setCategory(scategory) {
     _category = scategory;
     notifyListeners();
@@ -87,8 +93,10 @@ class ProductViewmodel extends ChangeNotifier {
     _api.updateDocument("discountPrice", newPrice, productId);
   }
 
-  deleteProduct(productId) {
+  deleteProduct(productId, List<Product> array, cproduct) {
     _api.deleteDocument(productId);
+    array.remove(cproduct);
+    notifyListeners();
   }
 
   Future<List<Product>> getGiftItems() async {

@@ -15,8 +15,10 @@ class UserViewmodel extends ChangeNotifier {
   String? _twitterLink;
   String? _instagramLink;
   String? _imageUrl;
+  String? _username;
   File? _image;
   String? get firstname => _firstName;
+  String? get username => _username;
   String? get lastname => _lastName;
   String? get bio => _bio;
   String? get phoneNumber => _phoneNumber;
@@ -28,6 +30,10 @@ class UserViewmodel extends ChangeNotifier {
   Ceo? _currentCeo;
   Ceo? get currentCeo => _currentCeo;
   final Api _api = Api("users");
+  setUsername(name) {
+    _username = name;
+  }
+
   Future<void> setImageUrl(image, uid) async {
     _imageUrl = await Storage().uploadImage(image, uid, "Users");
   }

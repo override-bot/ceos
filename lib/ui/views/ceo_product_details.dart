@@ -130,9 +130,14 @@ class _CeoProductDetailsState extends State<CeoProductDetails> {
 
                       PopUp().askIsSure(
                           "Do you really want to delete?", context, () async {
-                        await productViewmodel
-                            .deleteProduct(productViewmodel.product?.id);
+                        await productViewmodel.deleteProduct(
+                            productViewmodel.product?.id,
+                            productViewmodel.product?.isFlash == true
+                                ? productViewmodel.ceoFlash
+                                : productViewmodel.ceoProducts,
+                            productViewmodel.product);
                         RouteController().pop(context);
+                        setState(() {});
                         PopUp().showSuccess("Product deleted successfully",
                             productViewmodel.context);
                       });
