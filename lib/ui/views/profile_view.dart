@@ -141,10 +141,13 @@ class ProfileState extends State<ProfileView> {
                                 ],
                               )),
                           Container(
-                            margin: EdgeInsets.only(left: 0, top: 5),
+                            margin: EdgeInsets.only(top: 5),
+                            padding: EdgeInsets.all(3),
+                            width: MediaQuery.of(context).size.width,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   TextIcon(
                                       icon: Icons.add_business,

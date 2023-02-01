@@ -2,6 +2,7 @@
 
 import 'package:badges/badges.dart';
 import 'package:ceos/ui/views/categories.dart';
+import 'package:ceos/ui/views/chatview.dart';
 import 'package:ceos/ui/views/home_view.dart';
 import 'package:ceos/ui/views/profile_view.dart';
 import 'package:ceos/ui/widgets/avatar.dart';
@@ -19,7 +20,7 @@ class AppIndex extends StatefulWidget {
 
 class AppIndexState extends State<AppIndex> {
   int currentIndex = 0;
-  List children = [Home(), CategoriesView(), ProfileView()];
+  List children = [Home(), CategoriesView(), ChatView(), ProfileView()];
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
@@ -32,7 +33,7 @@ class AppIndexState extends State<AppIndex> {
                     color: ceoPurple, fontSize: TextSize().h2(context)),
               )
             : null,
-        leading: currentIndex != 3 ? Avatar() : null,
+        leading: currentIndex < 3 ? Avatar() : null,
         backgroundColor: ceoWhite,
         elevation: 0.0,
         actions: [
@@ -68,6 +69,12 @@ class AppIndexState extends State<AppIndex> {
                 label: "",
                 icon: Icon(
                   Icons.category_outlined,
+                  size: 20,
+                )),
+            BottomNavigationBarItem(
+                label: "",
+                icon: Icon(
+                  Icons.chat_bubble_outline,
                   size: 20,
                 )),
             BottomNavigationBarItem(

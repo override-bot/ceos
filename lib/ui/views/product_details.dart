@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ceos/core/viewmodels/chatviewmodel.dart';
 import 'package:ceos/ui/widgets/ceo_product_row.dart';
 import 'package:ceos/ui/widgets/username.dart';
+import 'package:ceos/utils/popContact.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +23,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     final productViewmodel = Provider.of<ProductViewmodel>(context);
+    ChatViewModel _chatViewmodel = ChatViewModel();
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,
@@ -121,7 +124,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: ceoPink,
                   ),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      popContact(context, productViewmodel.product!.sellerId);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

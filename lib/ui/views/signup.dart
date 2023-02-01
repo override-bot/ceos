@@ -91,6 +91,7 @@ class RegisterViewState extends State<RegisterView> {
                                     left: 10,
                                   ),
                                   child: CustomTextField(
+                                    maxLines: 1,
                                     obscureText: true,
                                     hintText: "Password",
                                     controller: _passwordField,
