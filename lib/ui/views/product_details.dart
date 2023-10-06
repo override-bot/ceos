@@ -6,6 +6,8 @@ import 'package:ceos/utils/popContact.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../../core/models/cart_item.dart';
+import '../../core/viewmodels/cart_viewmodel.dart';
 import '../../core/viewmodels/product_viewmodel.dart';
 import '../../utils/color.dart';
 import '../../utils/font_size.dart';
@@ -23,6 +25,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     final productViewmodel = Provider.of<ProductViewmodel>(context);
+    CartViewmodel _cartViewmodel = Provider.of<CartViewmodel>(context);
     ChatViewModel _chatViewmodel = ChatViewModel();
     return Scaffold(
         appBar: AppBar(
@@ -116,38 +119,131 @@ class _ProductDetailsState extends State<ProductDetails> {
                         color: ceoPurpleGrey),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10, top: 20, bottom: 5),
-                  height: 40,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  decoration: BoxDecoration(
-                    color: ceoPink,
-                  ),
-                  child: MaterialButton(
-                    onPressed: () async {
-                      popContact(context, productViewmodel.product!.sellerId);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.email,
-                          color: ceoWhite,
+                _cartViewmodel.isItemInCartForVendor(
+                            CartItem(
+                                name:
+                                    productViewmodel.product!.productName ?? "",
+                                productId: productViewmodel.product!.id ?? "",
+                                price:
+                                    productViewmodel.product!.price!.toDouble(),
+                                imageUrl:
+                                    productViewmodel.product!.productImage,
+                                shopId:
+                                    productViewmodel.product!.sellerId ?? ""),
+                            productViewmodel.product!.sellerId ?? "") ==
+                        false
+                    ? Container(
+                        margin: EdgeInsets.only(left: 10, top: 20, bottom: 5),
+                        height: 40,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                          color: ceoPurple,
                         ),
-                        Container(
-                          width: 4,
+                        child: MaterialButton(
+                          onPressed: () async {
+                            _cartViewmodel.addItemToCartForVendor(
+                                CartItem(
+                                    name:
+                                        productViewmodel.product!.productName ??
+                                            "",
+                                    productId:
+                                        productViewmodel.product!.id ?? "",
+                                    price: productViewmodel.product!.price!
+                                        .toDouble(),
+                                    imageUrl:
+                                        productViewmodel.product!.productImage,
+                                    shopId:
+                                        productViewmodel.product!.sellerId ??
+                                            ""),
+                                productViewmodel.product!.sellerId ?? "");
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(
+                                Icons.shopping_bag,
+                                color: ceoWhite,
+                              ),
+                              Container(
+                                width: 4,
+                              ),
+                              Text(
+                                'Add to cart',
+                                style: TextStyle(
+                                    fontSize: TextSize().p(context),
+                                    fontWeight: FontWeight.w600,
+                                    color: ceoWhite),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          'Contact ceo',
-                          style: TextStyle(
-                              fontSize: TextSize().p(context),
-                              fontWeight: FontWeight.w600,
-                              color: ceoWhite),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                      )
+                    : Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove_circle),
+                            onPressed: () {
+                              // Decrease quantity logic
+                              _cartViewmodel.decreaseQuantityForVendor(
+                                  CartItem(
+                                      name: productViewmodel
+                                              .product!.productName ??
+                                          "",
+                                      productId:
+                                          productViewmodel.product!.id ?? "",
+                                      price: productViewmodel.product!.price!
+                                          .toDouble(),
+                                      imageUrl: productViewmodel
+                                          .product!.productImage,
+                                      shopId:
+                                          productViewmodel.product!.sellerId ??
+                                              ""),
+                                  productViewmodel.product!.sellerId ?? "");
+                            },
+                          ),
+                          Text(
+                            _cartViewmodel
+                                .getQuantityForVendor(
+                                    CartItem(
+                                        name: productViewmodel
+                                                .product!.productName ??
+                                            "",
+                                        price: productViewmodel.product!.price!
+                                            .toDouble(),
+                                        imageUrl: productViewmodel
+                                            .product!.productImage,
+                                        productId:
+                                            productViewmodel.product!.id ?? "",
+                                        shopId: productViewmodel
+                                                .product!.sellerId ??
+                                            ""),
+                                    productViewmodel.product!.sellerId ?? "")
+                                .toString(),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.add_circle),
+                            onPressed: () {
+                              // Increase quantity logic
+                              _cartViewmodel.increaseQuantityForVendor(
+                                  CartItem(
+                                      name: productViewmodel
+                                              .product!.productName ??
+                                          "",
+                                      productId:
+                                          productViewmodel.product!.id ?? "",
+                                      price: productViewmodel.product!.price!
+                                          .toDouble(),
+                                      imageUrl: productViewmodel
+                                          .product!.productImage,
+                                      shopId:
+                                          productViewmodel.product!.sellerId ??
+                                              ""),
+                                  productViewmodel.product!.sellerId ?? "");
+                            },
+                          ),
+                        ],
+                      ),
                 CeoProducts()
               ],
             ),

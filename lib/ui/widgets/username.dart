@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/viewmodels/user_viewmodel.dart';
+import '../../utils/removeat.dart';
 
 class Username extends StatefulWidget {
   final String? userId;
@@ -21,13 +22,17 @@ class _UsernameState extends State<Username> {
     return FutureBuilder<Ceo>(
         future: userViewModel.getCeoById(widget.userId),
         builder: (context, snapshot) {
-          return Text(
-            'by ${snapshot.data?.firstname}',
-            style: TextStyle(
-                fontSize: TextSize().p(context),
-                color: ceoPurpleGrey,
-                fontWeight: FontWeight.w500),
-          );
+          if (snapshot.hasData) {
+            return Text(
+              'by ${removeAtSymbol(snapshot.data?.username ?? "")}',
+              style: TextStyle(
+                  fontSize: TextSize().p(context),
+                  color: ceoPurpleGrey,
+                  fontWeight: FontWeight.w500),
+            );
+          } else {
+            return Text("");
+          }
         });
   }
 }

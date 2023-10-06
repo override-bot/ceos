@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/services/authentication.dart';
+import '../../core/viewmodels/cart_viewmodel.dart';
 import '../../core/viewmodels/user_viewmodel.dart';
 
 class OnboardingOne extends StatefulWidget {
@@ -23,6 +24,7 @@ class OnboardingOneState extends State<OnboardingOne> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     final userViewModel = Provider.of<UserViewmodel>(context);
+    CartViewmodel _cartViewmodel = Provider.of<CartViewmodel>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -85,6 +87,7 @@ class OnboardingOneState extends State<OnboardingOne> {
                   width: 90,
                   child: MaterialButton(
                     onPressed: () async {
+                      await _cartViewmodel.loadCarts();
                       authService.getAuthState();
                       print(authService.userId);
                       if (authService.authState == true) {

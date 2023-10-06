@@ -12,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/services/authentication.dart';
+import '../../utils/router.dart';
+import '../widgets/cart_icon.dart';
+import 'super_cart_view.dart';
 
 class AppIndex extends StatefulWidget {
   @override
@@ -20,12 +23,19 @@ class AppIndex extends StatefulWidget {
 
 class AppIndexState extends State<AppIndex> {
   int currentIndex = 0;
-  List children = [Home(), CategoriesView(), ChatView(), ProfileView()];
+  List children = [Home(), CategoriesView(), ProfileView()];
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthenticationService>(context);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          CartIcon(
+            onPressed: () {
+              RouteController().push(context, SuperCartScreen());
+            },
+          )
+        ],
         title: currentIndex == 1
             ? Text(
                 'Categories',
@@ -33,17 +43,9 @@ class AppIndexState extends State<AppIndex> {
                     color: ceoPurple, fontSize: TextSize().h2(context)),
               )
             : null,
-        leading: currentIndex < 3 ? Avatar() : null,
+        leading: currentIndex < 2 ? Avatar() : null,
         backgroundColor: ceoWhite,
         elevation: 0.0,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.search,
-                color: ceoPurple,
-              )),
-        ],
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
@@ -69,12 +71,6 @@ class AppIndexState extends State<AppIndex> {
                 label: "",
                 icon: Icon(
                   Icons.category_outlined,
-                  size: 20,
-                )),
-            BottomNavigationBarItem(
-                label: "",
-                icon: Icon(
-                  Icons.chat_bubble_outline,
                   size: 20,
                 )),
             BottomNavigationBarItem(

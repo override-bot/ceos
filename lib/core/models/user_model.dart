@@ -25,17 +25,17 @@ class Ceo {
       this.whatsappLink,
       this.username});
   Ceo.fromMap(Map snapshot, this.id)
-      : bio = snapshot['bio'],
-        ceoScore = snapshot['ceoScore'],
-        subscribers = snapshot['subscribers'],
-        username = snapshot['username'],
-        firstname = snapshot['firstname'],
-        lastname = snapshot['lastname'],
-        imageUrl = snapshot['imageUrl'],
-        instagramLink = snapshot['instagramLink'],
-        phoneNumber = snapshot['phoneNumber'],
-        whatsappLink = snapshot['whatsappLink'],
-        twitterLink = snapshot['twitterLink'];
+      : bio = snapshot['bio'] ?? "",
+        ceoScore = snapshot['ceoScore'] ?? 0,
+        subscribers = snapshot['subscribers'] ?? [],
+        username = snapshot['username'] ?? "",
+        firstname = snapshot['firstname'] ?? "",
+        lastname = snapshot['lastname'] ?? "",
+        imageUrl = snapshot['imageUrl'] ?? "",
+        instagramLink = snapshot['instagramLink'] ?? "",
+        phoneNumber = snapshot['phoneNumber'] ?? "",
+        whatsappLink = snapshot['whatsappLink'] ?? "",
+        twitterLink = snapshot['twitterLink'] ?? "";
   toJson() {
     return {
       "bio": bio,

@@ -6,12 +6,12 @@ import 'package:ceos/ui/views/app_index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/services/authentication.dart';
-import '../../core/viewmodels/user_viewmodel.dart';
-import '../../utils/color.dart';
-import '../../utils/font_size.dart';
-import '../../utils/router.dart';
-import '../shared/textfield.dart';
+import '../../../core/services/authentication.dart';
+import '../../../core/viewmodels/user_viewmodel.dart';
+import '../../../utils/color.dart';
+import '../../../utils/font_size.dart';
+import '../../../utils/router.dart';
+import '../../shared/textfield.dart';
 
 class SocialsEdit extends StatefulWidget {
   @override

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/services/authentication.dart';
-import '../../core/viewmodels/user_viewmodel.dart';
-import '../../utils/color.dart';
-import '../../utils/font_size.dart';
+import '../../../core/services/authentication.dart';
+import '../../../core/viewmodels/user_viewmodel.dart';
+import '../../../utils/color.dart';
+import '../../../utils/font_size.dart';
 
 class ProfilePictureEdit extends StatefulWidget {
   @override

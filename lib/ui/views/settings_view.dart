@@ -1,7 +1,6 @@
 import 'package:ceos/ui/shared/popup.dart';
 import 'package:ceos/ui/views/edit_views/nameEdit.dart';
-import 'package:ceos/ui/views/profile_picture_edit.dart';
-import 'package:ceos/ui/views/socials_edit.dart';
+
 import 'package:ceos/ui/widgets/onbaording_one.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +12,8 @@ import '../../utils/color.dart';
 import '../../utils/font_size.dart';
 import '../../utils/router.dart';
 import '../shared/icon_circle.dart';
+import 'edit_views/profile_picture_edit.dart';
+import 'edit_views/socials_edit.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
