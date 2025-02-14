@@ -3,7 +3,6 @@
 import 'package:ceos/utils/color.dart';
 import 'package:ceos/utils/font_size.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/material.dart';
 
@@ -57,7 +56,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             }
           },
           controller: widget.controller,
-          style: GoogleFonts.lato(
+          style: TextStyle(
               color: ceoBlack,
               fontSize: TextSize().p(context),
               fontWeight: FontWeight.w500),
@@ -72,12 +71,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   )
                 : null,
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.lato(
+            hintStyle: TextStyle(
                 color: ceoPurpleGrey,
                 fontSize: TextSize().p(context),
                 fontWeight: FontWeight.w500),
             labelText: widget.labelText,
-            labelStyle: GoogleFonts.lato(
+            labelStyle: TextStyle(
                 color: ceoPurpleGrey,
                 fontSize: TextSize().p(context),
                 fontWeight: FontWeight.w500),

@@ -21,6 +21,8 @@ class AuthenticationService extends ChangeNotifier {
     try {
       var userCred = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+      String? token = await userCred.user!.getIdToken();
+      print('token: $token');
       final User? user = userCred.user;
       setUserId(user?.uid);
       setAuthState(true);
